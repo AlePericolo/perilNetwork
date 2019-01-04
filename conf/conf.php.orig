@@ -1,0 +1,27 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: alessandro
+ * Date: 04/01/19
+ * Time: 10.42
+ */
+if(!defined('SERVER')){
+
+    define("PROJECT_NAME", "perilNetwork");
+
+    /*LOCALE*/
+    define('SERVER','mysqllocal');
+    define('DBUSER','root');
+    define('DBPASSWORD',''); //dbPassword written in mysql portainer
+    define('DBNAME',''); //dbName
+    define('DBCHARSET','latin1');
+    define('LOCALE', true);
+
+    define('COLOR', 'Orange');
+
+    define("PATH_IMG_PROFILO", "/var/www/html/perilNetwork/grafica/img/fotoprofilo/");
+    define("PATH_ICONE", "/var/www/html/perilNetwork/grafica/img/icone/");
+    define("PATH_IMG_PROFILO_SERVER", "http://localhost/perilNetwork/grafica/img/fotoprofilo/");
+    define("PATH_IMG_PROFILO_DEFAULT_SERVER", "http://localhost/perilNetwork/grafica/img/fotoprofilo/utenteDefault.png");
+
+}
