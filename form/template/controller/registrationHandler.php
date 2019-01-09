@@ -17,19 +17,16 @@ function registraUtente($request){
     $pdo = connettiPdo();
     $login =  new Login($pdo);
 
-    //$pwdHash = password_hash($request->login->password, PASSWORD_DEFAULT);
-
-    if($login->countUsersByUsernamePassword($request->registration->username, $request->login->password) > 0){
-        return json_encode(array("status"=>"KO", "message"=>"Attenzione! Utente già presente."));
+    if($login->countUsersByUsernamePassword($request->registration->username, md5(SALT.$request->registration->password)) > 0){
+        return json_encode(array("status"=>"KO", "message"=>"Attenzione! Modificare Username o Password")); //utente già presente
     }else{
 
         $result = array();
 
         try{
             $pdo->beginTransaction();
-            $login->creaObjJson($request->registration, true);
-            //$login->setUsername($request->registration->username);
-            //$login->setPassword($pwdHash);
+            $login->setUsername($request->registration->username);
+            $login->setPassword(md5(SALT.$request->registration->password));
             $login->saveOrUpdate();
             $pdo->commit();
             $result['status'] = 'OK';
@@ -43,7 +40,6 @@ function registraUtente($request){
         return json_encode($result);
     }
 }
-
 
 ob_start();
 session_start();

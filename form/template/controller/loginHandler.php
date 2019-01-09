@@ -18,12 +18,7 @@ function effettuaLogin($request){
     $pdo = connettiPdo();
     $login =  new Login($pdo);
 
-    //$pwdHash = password_hash($request->login->password, PASSWORD_DEFAULT);
-
-    $id = $login->findIdByUsernamePassword($request->login->username, $request->login->password);
-
-    //error_log($pwdHash);
-    //error_log($id);
+    $id = $login->findIdByUsernamePassword($request->login->username, md5(SALT.$request->login->password));
 
     if($id){
         setLoginElementsInSession($id, $request->login->username, $request->login->password);
@@ -32,7 +27,6 @@ function effettuaLogin($request){
         return false;
     }
 }
-
 
 ob_start();
 session_start();
